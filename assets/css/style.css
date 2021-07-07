@@ -1,1 +1,40 @@
-/* Code */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+}
+
+#timer-display {
+    display: flex;
+}
+
+#timer-display > div {
+    margin-left: 2%;
+}
+
+main {
+    display: flex;
+}
+
+.card {
+    flex-wrap :wrap;
+    margin: 10% 15% 0;
+    text-align: center;
+    padding: 3%;
+    border: none;
+}
+
+.questions {
+    display: none;
+    text-align: left;
+}
+
+.questions > button {
+    padding: 1%;
+    margin: 1%;
+}
+
+a {
+    color: black;
+}
