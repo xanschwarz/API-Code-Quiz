@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,12 +10,9 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-
     <header>
       <!-- This will need to be changed to live website. -->
-      <a href="./View_Highscores.html" id="highScoresLink">
-        View Highscores
-      </a>
+      <a href="./View_Highscores.html" id="highScoresLink"> View Highscores </a>
       <div id="timerDisplay">Time: <span id="timeCount">90</span> seconds</div>
     </header>
 
@@ -33,37 +29,57 @@
 
     <main>
       <section class="card" id="intro">
-        <h1>
-          Coding Quiz Challenge
-        </h1>
+        <h1>Coding Quiz Challenge</h1>
         <p>
-          Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by 10 seconds!
+          Try to answer the following code-related questions within the time
+          limit. Keep in mind that incorrect answers will penalize your
+          score/time by 10 seconds!
         </p>
-        <button id="start">
-          Start Quiz
+        <button id="start">Start Quiz</button>
+      </section>
+
+      <section class="card questions">
+        <h1 id="questionText">
+          <!-- Text of the question will appear here. -->
+        </h1>
+        <br />
+        <button id="firstAnswer">
+          <!-- Text of the first possible answer will appear here. -->
+        </button>
+        <br />
+        <button id="secondAnswer">
+          <!-- Text of the second possible answer will appear here. -->
+        </button>
+        <br />
+        <button id="thirdAnswer">
+          <!-- Text of the third possible answer will appear here. -->
+        </button>
+        <br />
+        <button id="forthAnswer">
+          <!-- Text of the forth possible answer will appear here. -->
         </button>
       </section>
 
       <!-- Consider having one question card and reassigning text in JS and any other necessary changes. -->
-      <section class="card questions" id="q1">
+      <!-- <section class="card questions" id="q1">
         <h1>
           Commonly used data types DO NOT include:
         </h1>
         <br>
         <button id="firstAnswer">
-          1. strings
+          1. Strings
         </button>
         <br>
         <button id="secondAnswer">
-          2. booleans
+          2. Booleans
         </button>
         <br>
         <button id="thirdAnswer">
-          3. alerts
+          3. Alerts
         </button>
         <br>
         <button id="forthAnswer">
-          4. numbers
+          4. Numbers
         </button>
       </section>
   
@@ -73,19 +89,19 @@
         </h1>
         <br>
         <button>
-          1. quotes
+          1. Quotes
         </button>
         <br>
         <button>
-          2. curly brackets
+          2. Curly brackets
         </button>
         <br>
         <button>
-          3. parantheses
+          3. Parentheses
         </button>
         <br>
         <button>
-          4. square brackets
+          4. Square brackets
         </button>
       </section>
   
@@ -95,19 +111,19 @@
         </h1>
         <br>
         <button>
-          1. numbers and strings
+          1. Numbers and strings
         </button>
         <br>
         <button>
-          2. other arrays
+          2. Other arrays
         </button>
         <br>
         <button>
-          3. booleans
+          3. Booleans
         </button>
         <br>
         <button>
-          4. all of the above
+          4. All of the above
         </button>
       </section>
   
@@ -117,19 +133,19 @@
         </h1>
         <br>
         <button>
-          1. commas
+          1. Commas
         </button>
         <br>
         <button>
-          2. curly brackets
+          2. Curly brackets
         </button>
         <br>
         <button>
-          3. quotes
+          3. Quotes
         </button>
         <br>
         <button>
-          4. parantheses
+          4. Parentheses
         </button>
       </section>
   
@@ -143,21 +159,19 @@
         </button>
         <br>
         <button>
-          2. terminal/bash
+          2. Terminal/Bash
         </button>
         <br>
         <button>
-          3. for loops
+          3. For loops
         </button>
         <br>
         <button>
-          4. console log
+          4. Console log
         </button>
-      </section>
-
+      </section> -->
     </main>
- 
+
     <script src="./assets/js/script.js"></script>
   </body>
-  
 </html>
