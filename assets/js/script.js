@@ -1,32 +1,3 @@
-// var startBtn = document.querySelector('#start');
-// var introCard = document.querySelector('#intro');
-// var question1 = document.querySelector('#q1');
-// var question2 = document.querySelector('#q2');
-// var question3 = document.querySelector('#q3');
-// var question4 = document.querySelector('#q4');
-// var question5 = document.querySelector('#q5');
-// var firstAnswer = document.querySelector('#firstAnswer');
-// var secondAnswer = document.querySelector('#secondAnswer');
-// var thirdAnswer = document.querySelector('#thirdAnswer');
-// var forthAnswer = document.querySelector('#forthAnswer');
-
-// function secondQuestion() {
-//     question1.setAttribute("style", "display: none")
-//     question2.setAttribute("style", "display: block")
-// }
-
-// function firstQuestion() {
-//     introCard.setAttribute("style", "display: none")
-//     question1.setAttribute("style", "display: block")
-
-//     firstAnswer.addEventListener("click", secondQuestion)
-//     secondAnswer.addEventListener("click", secondQuestion)
-//     thirdAnswer.addEventListener("click", secondQuestion)
-//     forthAnswer.addEventListener("click", secondQuestion)
-// }
-
-//  startBtn.addEventListener("click", firstQuestion);
-
 var startBtn = document.querySelector('#start');
 var introCard = document.querySelector('#intro');
 var questionCard = document.querySelector('.questions');
@@ -35,6 +6,8 @@ var firstAnswer = document.querySelector('#firstAnswer');
 var secondAnswer = document.querySelector('#secondAnswer');
 var thirdAnswer = document.querySelector('#thirdAnswer');
 var forthAnswer = document.querySelector('#forthAnswer');
+
+// Consider using JavaScript to append answers to the question card. This may be less cumbersome and allows for easier changes to the quiz.
 
 var questions = [{
     question: "Commonly used data types DO NOT include:",
@@ -65,13 +38,42 @@ var questions = [{
 function startQuiz() {
     introCard.setAttribute("style", "display: none")
     questionCard.setAttribute("style", "display: block")
+    var questionIndex = 0;
+    var answersArray = [];
 
-    // first get question card appearing. Then you can set up a function answer onclick display next question and loop through the questions array.
-    questionText.innerHTML = questions[0].question;
-    firstAnswer.innerHTML = questions[0].answers[0];
-    secondAnswer.innerHTML = questions[0].answers[1];
-    thirdAnswer.innerHTML = questions[0].answers[2];
-    forthAnswer.innerHTML = questions[0].answers[3];
+    function displayQuestion() {
+        questionText.innerHTML = questions[questionIndex].question;
+        firstAnswer.innerHTML = questions[questionIndex].answers[0];
+        secondAnswer.innerHTML = questions[questionIndex].answers[1];
+        thirdAnswer.innerHTML = questions[questionIndex].answers[2];
+        forthAnswer.innerHTML = questions[questionIndex].answers[3];
+    }
+
+    displayQuestion();
+
+    function checkAnswer(event) {
+        // If the answer is correct, push true to the answer array, otherwise false. Console log the answer array. Then, move on to the next question.
+        if (event.target.innerHTML === questions[questionIndex].correctAnswer) {
+            answersArray.push(true);
+        } else {
+            answersArray.push(false);
+        }
+
+        console.log(answersArray);
+        questionIndex++;
+
+        if (questionIndex < questions.length) {
+            displayQuestion();
+        } else {
+            // What to do when quiz is finished.
+            console.log('Finished!')
+        }        
+    }    
+
+    firstAnswer.addEventListener("click", checkAnswer);
+    secondAnswer.addEventListener("click", checkAnswer);
+    thirdAnswer.addEventListener("click", checkAnswer);
+    forthAnswer.addEventListener("click", checkAnswer);
 
 }
 
