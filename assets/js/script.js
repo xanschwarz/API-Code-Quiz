@@ -169,6 +169,7 @@ function startQuiz() {
       correctAnswers++;
     } else {
       answersArray.push(false);
+      timeLeft = timeLeft - 10;
     }
     console.log(answersArray);
 
@@ -206,6 +207,5 @@ highScoresBtn.addEventListener("click", function () {
 
 // Implement the high scores page
 // Implement the ability to save your score w/initials
-// Have score = answers correct + bonus for each 10 seconds left. Display breakdown at end of quiz
-// Incorrect answer, user loses 10 seconds
 // High scores are saved in local storage
+// Ways to simplify the code?
