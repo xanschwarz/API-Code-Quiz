@@ -13,6 +13,8 @@ var bonusTime = document.querySelector('#bonusTime');
 var finalScore = document.querySelector('#finalScore');
 var timeCount = document.querySelector('#timeCount');
 var timeLeft = timeCount.innerHTML;
+var homeBtn = document.querySelector('#home');
+var highScoresBtn = document.querySelector('#highScoresBtn');
 
 // Consider using JavaScript to append answers to the question card. This may be less cumbersome and allows for easier changes to the quiz.
 
@@ -117,9 +119,15 @@ function startQuiz() {
     forthAnswer.addEventListener("click", checkAnswer);
 }
 
- startBtn.addEventListener("click", startQuiz);
+startBtn.addEventListener("click", startQuiz);
+homeBtn.addEventListener("click", function() {
+    window.location.reload();
+});
+highScoresBtn.addEventListener("click", function() {
+    window.location.href = "high_scores.html";
+});
 
-// Upon finishing, display a score (new card) with buttons to go to home or high score page.
+//  Upon finishing, display a score (new card) with buttons to go to home or high score page. --> Get the buttons working with a rudimentary high scores page.
 //  Have score = answers correct + bonus for each 10 seconds left. Display breakdown at end of quiz.
 //  Incorrect answer, user loses 10 seconds.
 //  High scores are saved in local storage seems like.
