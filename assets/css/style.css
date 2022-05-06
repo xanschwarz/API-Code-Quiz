@@ -35,6 +35,10 @@ main {
     margin: 1%;
 }
 
+#resultDisplay {
+    display: none;
+}
+
 a {
     color: black;
 }

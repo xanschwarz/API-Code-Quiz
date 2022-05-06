@@ -6,6 +6,7 @@ var firstAnswer = document.querySelector('#firstAnswer');
 var secondAnswer = document.querySelector('#secondAnswer');
 var thirdAnswer = document.querySelector('#thirdAnswer');
 var forthAnswer = document.querySelector('#forthAnswer');
+var resultDisplay = document.querySelector('#resultDisplay');
 
 // Consider using JavaScript to append answers to the question card. This may be less cumbersome and allows for easier changes to the quiz.
 
@@ -16,7 +17,7 @@ var questions = [{
 },
 {
     question: "The condition in an if/else statement is enclosed within ____.",
-    answers: ["1. Quotes", "2. Curly Brackets", "3. Parentheses", "4. Square Brackets"],
+    answers: ["1. Quotes", "2. Curly brackets", "3. Parentheses", "4. Square brackets"],
     correctAnswer: "3. Parentheses"
 },
 {
@@ -26,7 +27,7 @@ var questions = [{
 },
 {
     question: "String values must be enclosed within ____ when being assigned to variables.",
-    answers: ["1. Commas", "2. Curly Brackets", "3. Quotes", "4. Parentheses"],
+    answers: ["1. Commas", "2. Curly brackets", "3. Quotes", "4. Parentheses"],
     correctAnswer: "3. Quotes"
 },
 {
@@ -64,6 +65,12 @@ function startQuiz() {
 
         if (questionIndex < questions.length) {
             displayQuestion();
+            resultDisplay.setAttribute("style", "display: block")
+            if (answersArray[(questionIndex - 1)] === true) {
+                resultDisplay.innerHTML = "Correct!";
+            } else {
+                resultDisplay.innerHTML = "Incorrect!";
+            }
         } else {
             // What to do when quiz is finished.
             console.log('Finished!')
@@ -78,3 +85,8 @@ function startQuiz() {
 }
 
  startBtn.addEventListener("click", startQuiz);
+
+// Upon finishing, display a score (new card) with buttons to go to home or high score page.
+//  Have score = answers correct + bonus for each 10 seconds left. Display breakdown at end of quiz.
+//  Incorrect answer, user loses 10 seconds.
+//  High scores are saved in local storage seems like.
