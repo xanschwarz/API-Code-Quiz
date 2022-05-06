@@ -1,12 +1,18 @@
 var startBtn = document.querySelector('#start');
 var introCard = document.querySelector('#intro');
-var questionCard = document.querySelector('.questions');
+var questionCard = document.querySelector('#questions');
 var questionText = document.querySelector('#questionText');
 var firstAnswer = document.querySelector('#firstAnswer');
 var secondAnswer = document.querySelector('#secondAnswer');
 var thirdAnswer = document.querySelector('#thirdAnswer');
 var forthAnswer = document.querySelector('#forthAnswer');
 var resultDisplay = document.querySelector('#resultDisplay');
+var outroCard = document.querySelector('#outro');
+var quizResults = document.querySelector('#quizResults');
+var bonusTime = document.querySelector('#bonusTime');
+var finalScore = document.querySelector('#finalScore');
+var timeCount = document.querySelector('#timeCount');
+var timeLeft = timeCount.innerHTML;
 
 // Consider using JavaScript to append answers to the question card. This may be less cumbersome and allows for easier changes to the quiz.
 
@@ -41,6 +47,7 @@ function startQuiz() {
     questionCard.setAttribute("style", "display: block")
     var questionIndex = 0;
     var answersArray = [];
+    var correctAnswers = 0;
 
     function displayQuestion() {
         questionText.innerHTML = questions[questionIndex].question;
@@ -52,15 +59,41 @@ function startQuiz() {
 
     displayQuestion();
 
+    function displayOutro() {
+        questionCard.setAttribute("style", "display: none")
+        outroCard.setAttribute("style", "display: block")
+        var bonusTimeScore = Math.floor(timeLeft / 10)
+
+        if (correctAnswers >= 4) {
+            quizResults.innerHTML = "Great job! You got " + correctAnswers + " out of " + questions.length + " questions correct!";
+        } else if (correctAnswers === 3) {
+            quizResults.innerHTML = " Not bad, but you can do better! You got " + correctAnswers + " out of " + questions.length + " questions correct!";
+        } else {
+            quizResults.innerHTML = "You need to go study and try again! You got " + correctAnswers + " out of " + questions.length + " questions correct!";
+        }
+
+        // Once the timer is implemented, make sure this functioning as intended.
+        if (timeLeft > 20) {
+            bonusTime.innerHTML = "Finished with time to spare! You got a bonus time score of " + bonusTimeScore + " seconds!";
+        } else if (timeLeft >= 10) {
+            bonusTime.innerHTML = "Cutting it close! You got a bonus time score of " + bonusTimeScore + " seconds!";
+        } else {
+            bonusTime.innerHTML = "Unfortunately, you didn't get any bonus time score!";
+        }
+
+        finalScore.innerHTML = "Your final score is " + (correctAnswers + bonusTimeScore);    
+    }
+
     function checkAnswer(event) {
         // If the answer is correct, push true to the answer array, otherwise false. Console log the answer array. Then, move on to the next question.
         if (event.target.innerHTML === questions[questionIndex].correctAnswer) {
             answersArray.push(true);
+            correctAnswers++;
         } else {
             answersArray.push(false);
         }
-
         console.log(answersArray);
+
         questionIndex++;
 
         if (questionIndex < questions.length) {
@@ -74,6 +107,7 @@ function startQuiz() {
         } else {
             // What to do when quiz is finished.
             console.log('Finished!')
+            displayOutro();
         }        
     }    
 
@@ -81,7 +115,6 @@ function startQuiz() {
     secondAnswer.addEventListener("click", checkAnswer);
     thirdAnswer.addEventListener("click", checkAnswer);
     forthAnswer.addEventListener("click", checkAnswer);
-
 }
 
  startBtn.addEventListener("click", startQuiz);

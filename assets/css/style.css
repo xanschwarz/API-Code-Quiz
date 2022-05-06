@@ -15,9 +15,11 @@ header {
 
 main {
     display: flex;
+    justify-content: center;
 }
 
 .card {
+    
     flex-wrap :wrap;
     margin: 10% 15% 0;
     text-align: center;
@@ -25,17 +27,21 @@ main {
     border: none;
 }
 
-.questions {
+#questions {
     display: none;
     text-align: left;
 }
 
-.questions > button {
+#questions > button {
     padding: 1%;
     margin: 1%;
 }
 
 #resultDisplay {
+    display: none;
+}
+
+#outro {
     display: none;
 }
 

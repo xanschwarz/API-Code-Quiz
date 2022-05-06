@@ -38,7 +38,7 @@
         <button id="start">Start Quiz</button>
       </section>
 
-      <section class="card questions">
+      <section class="card" id="questions">
         <h1 id="questionText">
           <!-- Text of the question will appear here. -->
         </h1>
@@ -63,116 +63,21 @@
         </p>
       </section>
 
-      <!-- Consider having one question card and reassigning text in JS and any other necessary changes. -->
-      <!-- <section class="card questions" id="q1">
-        <h1>
-          Commonly used data types DO NOT include:
-        </h1>
-        <br>
-        <button id="firstAnswer">
-          1. Strings
-        </button>
-        <br>
-        <button id="secondAnswer">
-          2. Booleans
-        </button>
-        <br>
-        <button id="thirdAnswer">
-          3. Alerts
-        </button>
-        <br>
-        <button id="forthAnswer">
-          4. Numbers
-        </button>
+      <section class="card" id="outro">
+        <h1>You finished the coding quiz!</h1>
+        <p id="quizResults">
+          <!-- How many answers were correctly answered will be displayed here. -->
+        </p>
+        <p id="bonusTime">
+          <!-- Whether the user got bonus score from time left will be displayed here. -->
+        </p>
+        <p id="finalScore">
+          <!-- Final score as the correct answers plus any bonus time will be displayed here. -->
+        </p>
+        <!-- Needs an option for saving their score. "Enter your initials to save your score:" with an input text field. -->
+        <button id="home">Go Home</button>
+        <button id="highScoresBtn">Go to High Scores</button>
       </section>
-  
-      <section class="card questions" id="q2">
-        <h1>
-          The condition in an if / else statement is enclosed within _______.
-        </h1>
-        <br>
-        <button>
-          1. Quotes
-        </button>
-        <br>
-        <button>
-          2. Curly brackets
-        </button>
-        <br>
-        <button>
-          3. Parentheses
-        </button>
-        <br>
-        <button>
-          4. Square brackets
-        </button>
-      </section>
-  
-      <section class="card questions" id="q3">
-        <h1>
-          Arrays in JavaScript can be used to store _______.
-        </h1>
-        <br>
-        <button>
-          1. Numbers and strings
-        </button>
-        <br>
-        <button>
-          2. Other arrays
-        </button>
-        <br>
-        <button>
-          3. Booleans
-        </button>
-        <br>
-        <button>
-          4. All of the above
-        </button>
-      </section>
-  
-      <section class="card questions"  id="q4">
-        <h1>
-          String values must be enclosed within _______ when being assigned to variables.
-        </h1>
-        <br>
-        <button>
-          1. Commas
-        </button>
-        <br>
-        <button>
-          2. Curly brackets
-        </button>
-        <br>
-        <button>
-          3. Quotes
-        </button>
-        <br>
-        <button>
-          4. Parentheses
-        </button>
-      </section>
-  
-      <section class="card questions"  id="q5">
-        <h1>
-          A very useful tool used during development and debugging for printing content to the debugger is:
-        </h1>
-        <br>
-        <button>
-          1. JavaScript
-        </button>
-        <br>
-        <button>
-          2. Terminal/Bash
-        </button>
-        <br>
-        <button>
-          3. For loops
-        </button>
-        <br>
-        <button>
-          4. Console log
-        </button>
-      </section> -->
     </main>
 
     <script src="./assets/js/script.js"></script>
