@@ -12,7 +12,7 @@
   <body>
     <header>
       <!-- This will need to be changed to live website. -->
-      <a href="./View_Highscores.html" id="highScoresLink"> View Highscores </a>
+      <a href="./high_scores.html" id="highScoresLink"> View Highscores </a>
       <div id="timerDisplay">
         Time: <span id="timeCount"></span><span id="countdownText"></span>
       </div>
@@ -23,7 +23,7 @@
     <!-- Different displays done as cards, alternating their display status. -->
 
     <!-- Things that appear in example: -->
-    <!-- Initial page with summary, start button, and all pages have view highscores link. -->
+    <!-- Initial page with summary, start button, and all pages have "View High Scores" link. -->
     <!-- Questions. After the first question, each subsequent question displays whether you got the previous one right or wrong. Consider showing
     2-3 seconds or until display changes, whichever comes first. -->
     <!-- Final score display with input for initials -->
@@ -76,7 +76,13 @@
         <p id="finalScore">
           <!-- Final score as the correct answers plus any bonus time will be displayed here. -->
         </p>
-        <!-- Needs an option for saving their score. "Enter your initials to save your score:" with an input text field. Depending on element used, don't forget event.preventDefault(). -->
+        <!-- This will need to be changed to live website. -->
+        <form action="./high_scores.html">
+          <h5>Want to save your score?</h5>
+          <label for="initials">Enter initials:</label>
+          <input type="text" id="initials" name="initials" />
+          <input type="submit" value="Submit" />
+        </form>
         <button id="home">Go Home</button>
         <button id="highScoresBtn">Go to High Scores</button>
       </section>

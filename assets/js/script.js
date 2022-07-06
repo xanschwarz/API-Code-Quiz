@@ -10,12 +10,12 @@ var resultDisplay = document.querySelector("#resultDisplay");
 var outroCard = document.querySelector("#outro");
 var quizResults = document.querySelector("#quizResults");
 var bonusTime = document.querySelector("#bonusTime");
-var finalScore = document.querySelector("#finalScore");
+var finalScoreDisplay = document.querySelector("#finalScore");
 var timeCount = document.querySelector("#timeCount");
 var countdownText = document.querySelector("#countdownText");
 var homeBtn = document.querySelector("#home");
 var highScoresBtn = document.querySelector("#highScoresBtn");
-var quizTime = 20;
+var quizTime = 90;
 var resultTimer = 1;
 timeCount.innerHTML = quizTime;
 countdownText.innerHTML = " seconds left!";
@@ -98,21 +98,21 @@ function startQuiz() {
         correctAnswers +
         " out of " +
         questions.length +
-        " questions correct!";
+        " questions correct.";
     } else if (correctAnswers === 3) {
       quizResults.innerHTML =
         " Not bad, but you can do better! You got " +
         correctAnswers +
         " out of " +
         questions.length +
-        " questions correct!";
+        " questions correct.";
     } else {
       quizResults.innerHTML =
         "You need to go study and try again! You got " +
         correctAnswers +
         " out of " +
         questions.length +
-        " questions correct!";
+        " questions correct.";
     }
 
     // Once the timer is implemented, make sure this functioning as intended.
@@ -120,19 +120,24 @@ function startQuiz() {
       bonusTime.innerHTML =
         "Finished with time to spare! You got a bonus time score of " +
         bonusTimeScore +
-        " seconds!";
+        " seconds.";
     } else if (timeLeft >= 10) {
       bonusTime.innerHTML =
         "Cutting it close! You got a bonus time score of " +
         bonusTimeScore +
-        " seconds!";
+        " seconds.";
     } else {
       bonusTime.innerHTML =
         "Unfortunately, you didn't get any bonus time score!";
     }
 
-    finalScore.innerHTML =
-      "Your final score is " + (correctAnswers + bonusTimeScore);
+    var finalScore = correctAnswers + bonusTimeScore;
+
+    if (finalScore < 0) {
+      finalScore = 0;
+    }
+
+    finalScoreDisplay.innerHTML = "Your final score is " + finalScore + ".";
   }
 
   var timer = setInterval(function () {
@@ -205,7 +210,9 @@ highScoresBtn.addEventListener("click", function () {
   window.location.href = "high_scores.html";
 });
 
-// Implement the high scores page
 // Implement the ability to save your score w/initials
 // High scores are saved in local storage
+// Polish high scores page, then go over everything including Responsive Design
 // Ways to simplify the code?
+// Any other functionality?
+// Clean out any unused IDs and classes. Better comments throughout.
