@@ -13,10 +13,13 @@ var bonusTime = document.querySelector("#bonusTime");
 var finalScoreDisplay = document.querySelector("#finalScore");
 var timeCount = document.querySelector("#timeCount");
 var countdownText = document.querySelector("#countdownText");
+var userInitials = document.querySelector("#initials");
+var saveScoreBtn = document.querySelector("#saveScoreBtn");
 var homeBtn = document.querySelector("#home");
 var highScoresBtn = document.querySelector("#highScoresBtn");
 var quizTime = 90;
 var resultTimer = 1;
+var finalScore;
 timeCount.innerHTML = quizTime;
 countdownText.innerHTML = " seconds left!";
 
@@ -131,7 +134,7 @@ function startQuiz() {
         "Unfortunately, you didn't get any bonus time score!";
     }
 
-    var finalScore = correctAnswers + bonusTimeScore;
+    finalScore = correctAnswers + bonusTimeScore;
 
     if (finalScore < 0) {
       finalScore = 0;
@@ -202,7 +205,13 @@ function startQuiz() {
   forthAnswer.addEventListener("click", checkAnswer);
 }
 
+function saveScore() {
+  var initials = userInitials.value.trim();
+  localStorage.setItem(initials, finalScore);
+}
+
 startBtn.addEventListener("click", startQuiz);
+saveScoreBtn.addEventListener("click", saveScore);
 homeBtn.addEventListener("click", function () {
   window.location.reload();
 });
@@ -210,9 +219,8 @@ highScoresBtn.addEventListener("click", function () {
   window.location.href = "high_scores.html";
 });
 
-// Implement the ability to save your score w/initials
-// High scores are saved in local storage
-// Polish high scores page, then go over everything including Responsive Design
+// High scores are saved in local storage, now they need to be displayed on the High Scores page.
+// Polish high scores page, then go over everything including Responsive Design.
 // Ways to simplify the code?
 // Any other functionality?
 // Clean out any unused IDs and classes. Better comments throughout.
