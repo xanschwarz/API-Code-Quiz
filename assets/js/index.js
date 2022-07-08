@@ -206,9 +206,6 @@ function startQuiz() {
 }
 
 function saveScore(event) {
-  // Previously was writing to local storage with the initials as the name. This could result in scores being overwritten. Also it complicates getting scores from local storage.
-  // Scores need to be saved as an array of objects with a identifiable name as there may be other things in local storage.
-  // Adding a new score will need to be done by getting the array from local storage, adding the new score object, and then setting the array back to local storage.
   event.preventDefault();
   var initials = userInitials.value.trim();
   var letterCheck = /^[A-Za-z]+$/;
@@ -233,6 +230,8 @@ function saveScore(event) {
     savedScores.push(scoreToAdd);
     localStorage.setItem("CodeQuizScores", JSON.stringify(savedScores));
     window.location.href = "./high_scores.html";
+    // Call function to display just entered score and it's position in the high scores list. This just be a message shown in the element? This need to be a separate js file?
+    // Call function to display all high scores.
   }
 }
 
@@ -243,11 +242,12 @@ homeBtn.addEventListener("click", function () {
 });
 highScoresBtn.addEventListener("click", function () {
   window.location.href = "high_scores.html";
+  // Call function to get scores from local storage and display them.
 });
 
-// High scores are saved in local storage. User input is checked to be valid.
-// Scores need to be displayed on the High Scores page. Do this in order of highest score to lowest, alphabetical if scores are equal. Only show top 10? Top 10 plus the user's score?
+// Style high score page. High score page needs results message when user saves score.
 // Polish high scores page, then go over all styling on all pages including Responsive Design.
+// High scores page needs to not be using index.js.
 // Ways to simplify the code?
 // Any other functionality?
 // Clean out any unused IDs and classes. Better comments throughout.

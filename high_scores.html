@@ -18,22 +18,19 @@
     <main>
       <section class="card" id="score_display">
         <h1>High Score Legends</h1>
-        <!-- Display the saved initials with the score shown on the right, in order from highest to lowest. Lists in two sections side by side? -->
-        <ol id="high_score_list"></ol>
+        <!-- Style score and initials as two columns side by side with no bullet points on the lists. -->
+        <!-- Need area to display message about recent users result on score save. -->
+        <section id="scores_column">
+          <h4>Score</h4>
+          <ul id="scores_list"></ul>
+        </section>
+        <section id="initials_column">
+          <h4>Initials</h4>
+          <ul id="initials_list"></ul>
+        </section>
       </section>
     </main>
-    <!-- <ol>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-      <li>Joe Smith</li>
-    </ol> -->
+    <script src="./assets/js/index.js"></script>
     <script src="./assets/js/high_scores.js"></script>
   </body>
 </html>
