@@ -206,14 +206,32 @@ function startQuiz() {
 }
 
 function saveScore(event) {
+  // Previously was writing to local storage with the initials as the name. This could result in scores being overwritten. Also it complicates getting scores from local storage.
+  // Scores need to be saved as an array of objects with a identifiable name as there may be other things in local storage.
+  // Adding a new score will need to be done by getting the array from local storage, adding the new score object, and then setting the array back to local storage.
   event.preventDefault();
   var initials = userInitials.value.trim();
   var letterCheck = /^[A-Za-z]+$/;
   if (!initials.match(letterCheck)) {
     alert("Please enter your initials using only letters.");
     userInitials.value = "";
+  } else if (!localStorage.getItem("CodeQuizScores")) {
+    var scoreToAdd = [
+      {
+        initials: initials,
+        score: finalScore,
+      },
+    ];
+    localStorage.setItem("CodeQuizScores", JSON.stringify(scoreToAdd));
+    window.location.href = "./high_scores.html";
   } else {
-    localStorage.setItem(initials, finalScore);
+    var savedScores = JSON.parse(localStorage.getItem("CodeQuizScores"));
+    var scoreToAdd = {
+      initials: initials,
+      score: finalScore,
+    };
+    savedScores.push(scoreToAdd);
+    localStorage.setItem("CodeQuizScores", JSON.stringify(savedScores));
     window.location.href = "./high_scores.html";
   }
 }
