@@ -205,9 +205,17 @@ function startQuiz() {
   forthAnswer.addEventListener("click", checkAnswer);
 }
 
-function saveScore() {
+function saveScore(event) {
+  event.preventDefault();
   var initials = userInitials.value.trim();
-  localStorage.setItem(initials, finalScore);
+  var letterCheck = /^[A-Za-z]+$/;
+  if (!initials.match(letterCheck)) {
+    alert("Please enter your initials using only letters.");
+    userInitials.value = "";
+  } else {
+    localStorage.setItem(initials, finalScore);
+    window.location.href = "./high_scores.html";
+  }
 }
 
 startBtn.addEventListener("click", startQuiz);
@@ -219,8 +227,9 @@ highScoresBtn.addEventListener("click", function () {
   window.location.href = "high_scores.html";
 });
 
-// High scores are saved in local storage, now they need to be displayed on the High Scores page.
-// Polish high scores page, then go over everything including Responsive Design.
+// High scores are saved in local storage. User input is checked to be valid.
+// Scores need to be displayed on the High Scores page. Do this in order of highest score to lowest, alphabetical if scores are equal. Only show top 10? Top 10 plus the user's score?
+// Polish high scores page, then go over all styling on all pages including Responsive Design.
 // Ways to simplify the code?
 // Any other functionality?
 // Clean out any unused IDs and classes. Better comments throughout.
