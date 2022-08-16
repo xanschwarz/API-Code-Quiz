@@ -32,7 +32,7 @@ main {
     text-align: left;
 }
 
-#questions > button {
+#answersDisplay > button {
     padding: 1%;
     margin: 1%;
 }

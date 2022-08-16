@@ -18,16 +18,13 @@
       </div>
     </header>
 
-    <!-- Later: add more/deeper page styling. -->
     <!-- Start button initiates timer, starts quiz functions. -->
-    <!-- Different displays done as cards, alternating their display status. -->
-
-    <!-- Things that appear in example: -->
+    <!-- Different displays done as cards, altering their display status as appropriate. -->
     <!-- Initial page with summary, start button, and all pages have "View High Scores" link. -->
-    <!-- Questions. After the first question, each subsequent question displays whether you got the previous one right or wrong. Consider showing
-    2-3 seconds or until display changes, whichever comes first. -->
-    <!-- Final score display with input for initials -->
-    <!-- High scores display with all locally saved scores displaying (maybe put up to 10 scores?) -->
+    <!-- After the first question, each subsequent question displays whether you got the previous one right or wrong for a short period, or if the user proceeds to the next
+      question, whichever comes first. -->
+    <!-- Final score display with input for initials. -->
+    <!-- High scores display with all locally saved scores displaying. -->
 
     <main>
       <section class="card" id="intro">
@@ -44,22 +41,9 @@
         <h1 id="questionText">
           <!-- Text of the question will appear here. -->
         </h1>
-        <br />
-        <button id="firstAnswer">
-          <!-- Text of the first possible answer will appear here. -->
-        </button>
-        <br />
-        <button id="secondAnswer">
-          <!-- Text of the second possible answer will appear here. -->
-        </button>
-        <br />
-        <button id="thirdAnswer">
-          <!-- Text of the third possible answer will appear here. -->
-        </button>
-        <br />
-        <button id="forthAnswer">
-          <!-- Text of the forth possible answer will appear here. -->
-        </button>
+        <div id="answersDisplay">
+          <!-- Each of the answer options for the corresponding question will display here as buttons. -->
+        </div>
         <p id="resultDisplay">
           <!-- Text of whether the previous answer was correct or wrong will appear here. -->
         </p>

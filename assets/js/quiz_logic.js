@@ -2,10 +2,7 @@ var startBtn = document.querySelector("#start");
 var introCard = document.querySelector("#intro");
 var questionCard = document.querySelector("#questions");
 var questionText = document.querySelector("#questionText");
-var firstAnswer = document.querySelector("#firstAnswer");
-var secondAnswer = document.querySelector("#secondAnswer");
-var thirdAnswer = document.querySelector("#thirdAnswer");
-var forthAnswer = document.querySelector("#forthAnswer");
+var answersDisplay = document.querySelector("#answersDisplay");
 var resultDisplay = document.querySelector("#resultDisplay");
 var outroCard = document.querySelector("#outro");
 var quizResults = document.querySelector("#quizResults");
@@ -17,84 +14,18 @@ var userInitials = document.querySelector("#initials");
 var saveScoreBtn = document.querySelector("#saveScoreBtn");
 var homeBtn = document.querySelector("#home");
 var highScoresBtn = document.querySelector("#highScoresBtn");
-var quizTime = 90;
+var timeLeft = 90;
 var resultTimer = 1;
 var finalScore;
-timeCount.innerHTML = quizTime;
+var questionIndex = 0;
+var answersArray = [];
+var correctAnswers = 0;
+timeCount.innerHTML = timeLeft;
 countdownText.innerHTML = " seconds left!";
 
 function startQuiz() {
   introCard.setAttribute("style", "display: none");
   questionCard.setAttribute("style", "display: block");
-  var questionIndex = 0;
-  var answersArray = [];
-  var correctAnswers = 0;
-  timeCount.innerHTML = quizTime;
-  countdownText.innerHTML = " seconds left!";
-  var timeLeft = timeCount.innerHTML;
-
-  function displayQuestion() {
-    questionText.innerHTML = questions[questionIndex].question;
-    firstAnswer.innerHTML = questions[questionIndex].answers[0];
-    secondAnswer.innerHTML = questions[questionIndex].answers[1];
-    thirdAnswer.innerHTML = questions[questionIndex].answers[2];
-    forthAnswer.innerHTML = questions[questionIndex].answers[3];
-  }
-
-  displayQuestion();
-
-  function displayOutro() {
-    questionCard.setAttribute("style", "display: none");
-    outroCard.setAttribute("style", "display: block");
-    var bonusTimeScore = Math.floor(timeLeft / 10);
-
-    if (correctAnswers >= 4) {
-      quizResults.innerHTML =
-        "Great job! You got " +
-        correctAnswers +
-        " out of " +
-        questions.length +
-        " questions correct.";
-    } else if (correctAnswers === 3) {
-      quizResults.innerHTML =
-        " Not bad, but you can do better! You got " +
-        correctAnswers +
-        " out of " +
-        questions.length +
-        " questions correct.";
-    } else {
-      quizResults.innerHTML =
-        "You need to go study and try again! You got " +
-        correctAnswers +
-        " out of " +
-        questions.length +
-        " questions correct.";
-    }
-
-    // Once the timer is implemented, make sure this functioning as intended.
-    if (timeLeft > 20) {
-      bonusTime.innerHTML =
-        "Finished with time to spare! You got a bonus time score of " +
-        bonusTimeScore +
-        " seconds.";
-    } else if (timeLeft >= 10) {
-      bonusTime.innerHTML =
-        "Cutting it close! You got a bonus time score of " +
-        bonusTimeScore +
-        " seconds.";
-    } else {
-      bonusTime.innerHTML =
-        "Unfortunately, you didn't get any bonus time score!";
-    }
-
-    finalScore = correctAnswers + bonusTimeScore;
-
-    if (finalScore < 0) {
-      finalScore = 0;
-    }
-
-    finalScoreDisplay.innerHTML = "Your final score is " + finalScore + ".";
-  }
 
   var timer = setInterval(function () {
     if (resultTimer > 0) {
@@ -122,6 +53,28 @@ function startQuiz() {
       displayOutro();
     }
   }, 1000);
+
+  function displayQuestion() {
+    questionText.innerHTML = questions[questionIndex].question;
+
+    // Clear the previous answers from the answersDisplay element.
+    answersDisplay.innerHTML = "";
+
+    for (i = 0; i < questions[questionIndex].answers.length; i++) {
+      // Append break element.
+      var breakEl = document.createElement("br");
+      answersDisplay.appendChild(breakEl);
+
+      // Create the answer element with it's corresponding text and an event listener.
+      var answerBtn = document.createElement("button");
+      answerBtn.innerHTML = questions[questionIndex].answers[i];
+      answerBtn.addEventListener("click", checkAnswer);
+      // Append the element to the DOM.
+      answersDisplay.appendChild(answerBtn);
+    }
+  }
+
+  displayQuestion();
 
   function checkAnswer(event) {
     // If the answer is correct, push true to the answer array, otherwise false. Console log the answer array. Then, move on to the next question.
@@ -152,10 +105,57 @@ function startQuiz() {
     }
   }
 
-  firstAnswer.addEventListener("click", checkAnswer);
-  secondAnswer.addEventListener("click", checkAnswer);
-  thirdAnswer.addEventListener("click", checkAnswer);
-  forthAnswer.addEventListener("click", checkAnswer);
+  function displayOutro() {
+    questionCard.setAttribute("style", "display: none");
+    outroCard.setAttribute("style", "display: block");
+    var bonusTimeScore = Math.floor(timeLeft / 10);
+
+    if (correctAnswers >= 4) {
+      quizResults.innerHTML =
+        "Great job! You got " +
+        correctAnswers +
+        " out of " +
+        questions.length +
+        " questions correct.";
+    } else if (correctAnswers === 3) {
+      quizResults.innerHTML =
+        " Not bad, but you can do better! You got " +
+        correctAnswers +
+        " out of " +
+        questions.length +
+        " questions correct.";
+    } else {
+      quizResults.innerHTML =
+        "You need to go study and try again! You got " +
+        correctAnswers +
+        " out of " +
+        questions.length +
+        " questions correct.";
+    }
+
+    if (timeLeft > 20) {
+      bonusTime.innerHTML =
+        "Finished with time to spare! You got a bonus time score of " +
+        bonusTimeScore +
+        " seconds.";
+    } else if (timeLeft >= 10) {
+      bonusTime.innerHTML =
+        "Cutting it close! You got a bonus time score of " +
+        bonusTimeScore +
+        " seconds.";
+    } else {
+      bonusTime.innerHTML =
+        "Unfortunately, you didn't get any bonus time score!";
+    }
+
+    finalScore = correctAnswers + bonusTimeScore;
+
+    if (finalScore < 0) {
+      finalScore = 0;
+    }
+
+    finalScoreDisplay.innerHTML = "Your final score is " + finalScore + ".";
+  }
 }
 
 function saveScore(event) {
@@ -200,7 +200,8 @@ highScoresBtn.addEventListener("click", function () {
 
 // Ways to simplify the code? For consideration:
 //    Clean up js file for index and high scores. Break things down into smallest, simplest functions for clarity.
-//    Maybe append elements to cut down on element variables. For example doing this with questions.
+//    Having the js append elements as appropriate would cut down on html and the js element variables. It would also make the js easier to follow.
+//        This has been done for the questions' answers displays. Can this be implemented elsewhere?
 
 // Any functionality to add? Some notes within code. Consider if they score 0 maybe show a message saying they need points to save their score, as opposed to showing the score
 // save form.
