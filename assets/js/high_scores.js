@@ -3,13 +3,10 @@ var initialsList = document.getElementById("initials_list");
 var savedScores = JSON.parse(localStorage.getItem("CodeQuizScores"));
 // var topFive;
 
-// For now show all scores from highest to lowest. For identical scores, show alphabetical order.
 // Consider in future only showing top 5 places. If there is a tie, show all scores at that place. Would need to add a "place" to the saved score object once retrieved from
 // local storage for this purpose.
-
-// for (i = 0; i < savedScores.length; i++) {
-//   console.log(savedScores[i]);
-// }
+// If the above is implemented, the generated results message can by modified to show the recent users place. A congratulations if they're in the top 5, else a message saying
+// they're in position X out of Y.
 
 function orderedScores() {
   // Sorts from highest to lowest score. For scores that are equal, sorts alphabetically by initials.
@@ -24,10 +21,21 @@ function orderedScores() {
   // return (topFive = savedScores.slice(0, 5));
 }
 
-orderedScores();
+function resultsMessage() {
+  // Checks local storage to see if user has saved a score. If so, displays a congratulations message and resets local storage message indicator to false.
+  var messageCheck = localStorage.getItem("DisplayResultsMessage");
+  if (messageCheck === "true") {
+    var resultsMessage = document.getElementById("results_message");
+    resultsMessage.setAttribute("style", "display: block");
+    resultsMessage.innerHTML =
+      "Congratulations on a saved high score! You're among these legends!";
+    localStorage.setItem("DisplayResultsMessage", "false");
+  }
+}
 
 function displayScores() {
-  // To do: when user saves score w/initials, when this page loads, show congratulations message if in top 5 w/their place, else show message w/their position out of how many.
+  orderedScores();
+  // Iterates through the savedScores array. Creates a list element and assigns text for each score and it's corresponding initials, then appends them to their respective lists.
   for (i = 0; i < savedScores.length; i++) {
     var scoreLi = document.createElement("li");
     var initialsLi = document.createElement("li");
@@ -36,6 +44,7 @@ function displayScores() {
     scoresList.appendChild(scoreLi);
     initialsList.appendChild(initialsLi);
   }
+  resultsMessage();
 }
 
 displayScores();

@@ -23,53 +23,6 @@ var finalScore;
 timeCount.innerHTML = quizTime;
 countdownText.innerHTML = " seconds left!";
 
-// Consider using JavaScript to append answers to the question card. This may be less cumbersome and allows for easier changes to the quiz.
-
-var questions = [
-  {
-    question: "Commonly used data types DO NOT include:",
-    answers: ["1. Strings", "2. Booleans", "3. Alerts", "4. Numbers"],
-    correctAnswer: "3. Alerts",
-  },
-  {
-    question: "The condition in an if/else statement is enclosed within ____.",
-    answers: [
-      "1. Quotes",
-      "2. Curly brackets",
-      "3. Parentheses",
-      "4. Square brackets",
-    ],
-    correctAnswer: "3. Parentheses",
-  },
-  {
-    question: "Arrays in JavaScript can be used to store ____.",
-    answers: [
-      "1. Numbers and strings",
-      "2. Other arrays",
-      "3. Booleans",
-      "4. All of the above",
-    ],
-    correctAnswer: "4. All of the above",
-  },
-  {
-    question:
-      "String values must be enclosed within ____ when being assigned to variables.",
-    answers: ["1. Commas", "2. Curly brackets", "3. Quotes", "4. Parentheses"],
-    correctAnswer: "3. Quotes",
-  },
-  {
-    question:
-      "A very useful tool used during development and debugging for printing content to the debugger is:",
-    answers: [
-      "1. JavaScript",
-      "2. Terminal/Bash",
-      "3. For loops",
-      "4. Console.log",
-    ],
-    correctAnswer: "4. Console.log",
-  },
-];
-
 function startQuiz() {
   introCard.setAttribute("style", "display: none");
   questionCard.setAttribute("style", "display: block");
@@ -220,6 +173,7 @@ function saveScore(event) {
       },
     ];
     localStorage.setItem("CodeQuizScores", JSON.stringify(scoreToAdd));
+    localStorage.setItem("DisplayResultsMessage", "true");
     window.location.href = "./high_scores.html";
   } else {
     var savedScores = JSON.parse(localStorage.getItem("CodeQuizScores"));
@@ -229,9 +183,9 @@ function saveScore(event) {
     };
     savedScores.push(scoreToAdd);
     localStorage.setItem("CodeQuizScores", JSON.stringify(savedScores));
+    localStorage.setItem("DisplayResultsMessage", "true");
     window.location.href = "./high_scores.html";
     // Call function to display just entered score and it's position in the high scores list. This just be a message shown in the element? This need to be a separate js file?
-    // Call function to display all high scores.
   }
 }
 
@@ -242,12 +196,13 @@ homeBtn.addEventListener("click", function () {
 });
 highScoresBtn.addEventListener("click", function () {
   window.location.href = "high_scores.html";
-  // Call function to get scores from local storage and display them.
 });
 
-// Style high score page. High score page needs results message when user saves score.
-// Polish high scores page, then go over all styling on all pages including Responsive Design.
-// High scores page needs to not be using index.js.
-// Ways to simplify the code?
-// Any other functionality?
+// Ways to simplify the code? For consideration:
+//    Clean up js file for index and high scores. Break things down into smallest, simplest functions for clarity.
+//    Maybe append elements to cut down on element variables. For example doing this with questions.
+
+// Any functionality to add? Some notes within code. Consider if they score 0 maybe show a message saying they need points to save their score, as opposed to showing the score
+// save form.
 // Clean out any unused IDs and classes. Better comments throughout.
+// Note in ReadMe that I chose to keep styling very simple for now, with some basic responsive design. I may add more extensive styling, possibly a framework, in the future.

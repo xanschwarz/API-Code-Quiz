@@ -52,3 +52,33 @@ a {
 form {
     margin: 2%;
 }
+
+#score_display {
+    display: flex;
+    justify-content: space-around;
+    padding: 2%;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#results_message {
+    display: none;
+}
+
+/* At this time, styling is intentionally kept very simple. This may be revisited in the future. In respect to responsive design, h1 elements are to be displayed smaller
+on small smartphone sized screens. */
+
+/* Tablets. */
+/* @media screen and (max-width: 992px) {} */
+/* Large smartphones. */
+/* @media screen and (max-width: 768px) {} */
+
+/* Small smartphones */
+@media screen and (max-width: 576px) {
+.card h1 {
+        font-size: 1.7rem;
+    }
+}

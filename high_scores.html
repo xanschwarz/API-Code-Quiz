@@ -16,21 +16,21 @@
       <a href="./index.html"> Back to Main Page </a>
     </header>
     <main>
-      <section class="card" id="score_display">
+      <section class="card">
         <h1>High Score Legends</h1>
-        <!-- Style score and initials as two columns side by side with no bullet points on the lists. -->
-        <!-- Need area to display message about recent users result on score save. -->
-        <section id="scores_column">
-          <h4>Score</h4>
-          <ul id="scores_list"></ul>
-        </section>
-        <section id="initials_column">
-          <h4>Initials</h4>
-          <ul id="initials_list"></ul>
-        </section>
+        <div id="score_display">
+          <div id="scores_column">
+            <h4>Score</h4>
+            <ul id="scores_list"></ul>
+          </div>
+          <div id="initials_column">
+            <h4>Initials</h4>
+            <ul id="initials_list"></ul>
+          </div>
+        </div>
+        <p id="results_message"></p>
       </section>
     </main>
-    <script src="./assets/js/index.js"></script>
     <script src="./assets/js/high_scores.js"></script>
   </body>
 </html>
