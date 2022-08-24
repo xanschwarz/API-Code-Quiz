@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
 
-  <!-- This page needs full CSS and Javascript work. -->
   <body>
     <header>
       <!-- This will need to be changed to live website. -->
@@ -17,8 +16,14 @@
     </header>
     <main>
       <section class="card">
-        <h1>High Score Legends</h1>
+        <h1>Top 5 Placed High Score Legends</h1>
         <div id="score_display">
+          <!-- Scores are shown as lists with overall score placement, their total score, and their saved initials. -->
+          <!-- Tied scores share places and are ordered by their initials alphabetically. Top 5 places are shown for brevity. -->
+          <div id="places_column">
+            <h4>Place</h4>
+            <ul id="places_list"></ul>
+          </div>
           <div id="scores_column">
             <h4>Score</h4>
             <ul id="scores_list"></ul>

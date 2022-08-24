@@ -49,8 +49,13 @@ a {
     color: black;
 }
 
-form {
+#zeroScore {
+    display: none;
+}
+
+#saveScoreForm {
     margin: 2%;
+    display: none;
 }
 
 #score_display {
@@ -78,7 +83,13 @@ on small smartphone sized screens. */
 
 /* Small smartphones */
 @media screen and (max-width: 576px) {
-.card h1 {
+
+    .card {
+        margin: 8% 2% 0;
+        padding: 3%;
+    }
+
+    .card h1 {
         font-size: 1.7rem;
     }
 }

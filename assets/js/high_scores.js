@@ -1,14 +1,16 @@
+// Score lists elements.
+var placesList = document.getElementById("places_list");
 var scoresList = document.getElementById("scores_list");
 var initialsList = document.getElementById("initials_list");
-var savedScores = JSON.parse(localStorage.getItem("CodeQuizScores"));
-// var topFive;
 
-// Consider in future only showing top 5 places. If there is a tie, show all scores at that place. Would need to add a "place" to the saved score object once retrieved from
-// local storage for this purpose.
-// If the above is implemented, the generated results message can by modified to show the recent users place. A congratulations if they're in the top 5, else a message saying
-// they're in position X out of Y.
+// Retrieving the scores from local storage. Assigning the last entry to a variable for use in the results message, if applicable.
+var savedScores = JSON.parse(localStorage.getItem("CodeQuizScores"));
+var lastUser = savedScores[savedScores.length - 1];
+var topFive;
 
 function orderedScores() {
+  var slice;
+
   // Sorts from highest to lowest score. For scores that are equal, sorts alphabetically by initials.
   savedScores.sort(function (a, b) {
     if (a.score === b.score) {
@@ -18,7 +20,24 @@ function orderedScores() {
     }
   });
 
-  // return (topFive = savedScores.slice(0, 5));
+  // Gives each score a place value starting at 1.
+  savedScores[0].place = 1;
+  for (i = 1; i < savedScores.length; i++) {
+    if (savedScores[i].score === savedScores[i - 1].score) {
+      // If the scores are equal, they tie for place.
+      savedScores[i].place = savedScores[i - 1].place;
+    } else {
+      // If the scores are not equal, the place increases by 1.
+      savedScores[i].place = savedScores[i - 1].place + 1;
+    }
+
+    // Marks the last entry to be in top 5.
+    if (savedScores[i].place === 6 && savedScores[i - 1].place === 5) {
+      slice = i;
+    }
+  }
+
+  return (topFive = savedScores.slice(0, slice));
 }
 
 function resultsMessage() {
@@ -27,22 +46,37 @@ function resultsMessage() {
   if (messageCheck === "true") {
     var resultsMessage = document.getElementById("results_message");
     resultsMessage.setAttribute("style", "display: block");
-    resultsMessage.innerHTML =
-      "Congratulations on a saved high score! You're among these legends!";
+    // Provide message corresponding to user's placement in saved scores.
+    if (lastUser.place <= 5) {
+      resultsMessage.innerHTML =
+        "Congratulations on a saved high score! You're among these top 5 placed legends!";
+    } else {
+      resultsMessage.innerHTML =
+        "Congratulations on a saved high score! Your score placed " +
+        lastUser.place +
+        " out of " +
+        savedScores[savedScores.length - 1].place +
+        "!";
+    }
     localStorage.setItem("DisplayResultsMessage", "false");
   }
 }
 
 function displayScores() {
+  // Call function to order scores and return top 5 placement scores to be shown.
   orderedScores();
-  // Iterates through the savedScores array. Creates a list element and assigns text for each score and it's corresponding initials, then appends them to their respective lists.
-  for (i = 0; i < savedScores.length; i++) {
+  // Iterates through the topFive array. Creates a list element and assigns text for each score, it's corresponding initials and placement, then appends them to their
+  // respective lists.
+  for (i = 0; i < topFive.length; i++) {
     var scoreLi = document.createElement("li");
     var initialsLi = document.createElement("li");
-    scoreLi.textContent = savedScores[i].score;
-    initialsLi.textContent = savedScores[i].initials;
+    var placeLi = document.createElement("li");
+    scoreLi.textContent = topFive[i].score;
+    initialsLi.textContent = topFive[i].initials;
+    placeLi.textContent = topFive[i].place;
     scoresList.appendChild(scoreLi);
     initialsList.appendChild(initialsLi);
+    placesList.appendChild(placeLi);
   }
   resultsMessage();
 }

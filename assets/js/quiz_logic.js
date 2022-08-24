@@ -1,25 +1,39 @@
-var startBtn = document.querySelector("#start");
+// Card elements for control of their display style.
 var introCard = document.querySelector("#intro");
 var questionCard = document.querySelector("#questions");
-var questionText = document.querySelector("#questionText");
-var answersDisplay = document.querySelector("#answersDisplay");
-var resultDisplay = document.querySelector("#resultDisplay");
 var outroCard = document.querySelector("#outro");
-var quizResults = document.querySelector("#quizResults");
-var bonusTime = document.querySelector("#bonusTime");
-var finalScoreDisplay = document.querySelector("#finalScore");
-var timeCount = document.querySelector("#timeCount");
-var countdownText = document.querySelector("#countdownText");
-var userInitials = document.querySelector("#initials");
+
+// Button elements for event listeners.
+var startBtn = document.querySelector("#start");
 var saveScoreBtn = document.querySelector("#saveScoreBtn");
 var homeBtn = document.querySelector("#home");
 var highScoresBtn = document.querySelector("#highScoresBtn");
+
+// Question card elements.
+var questionText = document.querySelector("#questionText");
+var answersDisplay = document.querySelector("#answersDisplay");
+var resultDisplay = document.querySelector("#resultDisplay");
+
+// Outro card elements for displaying various quiz feedback and inputting user initials.
+var quizResults = document.querySelector("#quizResults");
+var bonusTime = document.querySelector("#bonusTime");
+var finalScoreDisplay = document.querySelector("#finalScore");
+var userInitials = document.querySelector("#initials");
+var zeroScore = document.querySelector("#zeroScore");
+var saveScoreForm = document.querySelector("#saveScoreForm");
+
+// Elements for the display of the remaining time.
+var timeCount = document.querySelector("#timeCount");
+var countdownText = document.querySelector("#countdownText");
+
+// Various global variables for the following functions.
+var resultTimer;
 var timeLeft = 90;
-var resultTimer = 1;
-var finalScore;
-var questionIndex = 0;
 var answersArray = [];
+var questionIndex = 0;
 var correctAnswers = 0;
+var finalScore;
+
 timeCount.innerHTML = timeLeft;
 countdownText.innerHTML = " seconds left!";
 
@@ -28,25 +42,31 @@ function startQuiz() {
   questionCard.setAttribute("style", "display: block");
 
   var timer = setInterval(function () {
+    // This is for displaying whether the user got the previous question correct or not. Rather than have it's own timer function it is simply implemented within the
+    // greater quiz timer function. Once time is up, hide display.
     if (resultTimer > 0) {
       resultTimer--;
     } else {
       resultDisplay.setAttribute("style", "display: none");
     }
 
+    // If seconds remain and not all questions are answered, decrement time and update the timer element.
     if (timeLeft > 1 && answersArray.length < questions.length) {
       timeLeft--;
       timeCount.innerHTML = timeLeft;
     } else if (timeLeft === 1 && answersArray.length < questions.length) {
+      // If 1 second remains and not all questions are answered, decrement time and update the timer element with appropriate text.
       timeLeft--;
       timeCount.innerHTML = timeLeft;
       countdownText.innerHTML = " second left!";
     } else if (answersArray.length === questions.length) {
+      // If all questions are answered, clear the timer and it's HTML display, replace it's display with "You finished!", and display the outro card.
       timeCount.innerHTML = "";
       countdownText.innerHTML = "You finished!";
       clearInterval(timer);
       displayOutro();
     } else {
+      // If quiz time has run out, clear the timer and it's HTML display, replace it's display with "Time is up!", and display the outro card.
       timeCount.innerHTML = "";
       countdownText.innerHTML = "Time is up!";
       clearInterval(timer);
@@ -54,118 +74,135 @@ function startQuiz() {
     }
   }, 1000);
 
-  function displayQuestion() {
-    questionText.innerHTML = questions[questionIndex].question;
-
-    // Clear the previous answers from the answersDisplay element.
-    answersDisplay.innerHTML = "";
-
-    for (i = 0; i < questions[questionIndex].answers.length; i++) {
-      // Append break element.
-      var breakEl = document.createElement("br");
-      answersDisplay.appendChild(breakEl);
-
-      // Create the answer element with it's corresponding text and an event listener.
-      var answerBtn = document.createElement("button");
-      answerBtn.innerHTML = questions[questionIndex].answers[i];
-      answerBtn.addEventListener("click", checkAnswer);
-      // Append the element to the DOM.
-      answersDisplay.appendChild(answerBtn);
-    }
-  }
-
   displayQuestion();
+}
 
-  function checkAnswer(event) {
-    // If the answer is correct, push true to the answer array, otherwise false. Console log the answer array. Then, move on to the next question.
-    if (event.target.innerHTML === questions[questionIndex].correctAnswer) {
-      answersArray.push(true);
-      correctAnswers++;
-    } else {
-      answersArray.push(false);
-      timeLeft = timeLeft - 10;
-    }
-    console.log(answersArray);
+function displayQuestion() {
+  // Display the current question in it's HTML element.
+  questionText.innerHTML = questions[questionIndex].question;
 
-    questionIndex++;
+  // Clear the previous answers from the answersDisplay element.
+  answersDisplay.innerHTML = "";
 
-    if (questionIndex < questions.length) {
-      displayQuestion();
-      resultDisplay.setAttribute("style", "display: block");
-      resultTimer = 1;
-      if (answersArray[questionIndex - 1] === true) {
-        resultDisplay.innerHTML = "Correct!";
-      } else {
-        resultDisplay.innerHTML = "Incorrect!";
-      }
-    } else {
-      // What to do when quiz is finished.
-      console.log("Finished!");
-      displayOutro();
-    }
-  }
+  // Loop through the current question's answers and display them in the answersDisplay element.
+  for (i = 0; i < questions[questionIndex].answers.length; i++) {
+    // Append break element.
+    var breakEl = document.createElement("br");
+    answersDisplay.appendChild(breakEl);
 
-  function displayOutro() {
-    questionCard.setAttribute("style", "display: none");
-    outroCard.setAttribute("style", "display: block");
-    var bonusTimeScore = Math.floor(timeLeft / 10);
-
-    if (correctAnswers >= 4) {
-      quizResults.innerHTML =
-        "Great job! You got " +
-        correctAnswers +
-        " out of " +
-        questions.length +
-        " questions correct.";
-    } else if (correctAnswers === 3) {
-      quizResults.innerHTML =
-        " Not bad, but you can do better! You got " +
-        correctAnswers +
-        " out of " +
-        questions.length +
-        " questions correct.";
-    } else {
-      quizResults.innerHTML =
-        "You need to go study and try again! You got " +
-        correctAnswers +
-        " out of " +
-        questions.length +
-        " questions correct.";
-    }
-
-    if (timeLeft > 20) {
-      bonusTime.innerHTML =
-        "Finished with time to spare! You got a bonus time score of " +
-        bonusTimeScore +
-        " seconds.";
-    } else if (timeLeft >= 10) {
-      bonusTime.innerHTML =
-        "Cutting it close! You got a bonus time score of " +
-        bonusTimeScore +
-        " seconds.";
-    } else {
-      bonusTime.innerHTML =
-        "Unfortunately, you didn't get any bonus time score!";
-    }
-
-    finalScore = correctAnswers + bonusTimeScore;
-
-    if (finalScore < 0) {
-      finalScore = 0;
-    }
-
-    finalScoreDisplay.innerHTML = "Your final score is " + finalScore + ".";
+    // Create the answer element with it's corresponding text and an event listener.
+    var answerBtn = document.createElement("button");
+    answerBtn.innerHTML = questions[questionIndex].answers[i];
+    answerBtn.addEventListener("click", checkAnswer);
+    // Append the element to the DOM.
+    answersDisplay.appendChild(answerBtn);
   }
 }
 
+function checkAnswer(event) {
+  // If the answer is correct, push true to the answer array. Otherwise push false and penalize 10 seconds. Then, increment the question index.
+  if (event.target.innerHTML === questions[questionIndex].correctAnswer) {
+    answersArray.push(true);
+    correctAnswers++;
+  } else {
+    answersArray.push(false);
+    timeLeft = timeLeft - 10;
+  }
+
+  questionIndex++;
+
+  // If the end of the quiz questions has not been reached, display the next question.
+  if (questionIndex < questions.length) {
+    displayQuestion();
+    // Briefly display whether the user got the previous question correct or not.
+    resultDisplay.setAttribute("style", "display: block");
+    resultTimer = 1;
+    if (answersArray[questionIndex - 1] === true) {
+      resultDisplay.innerHTML = "Correct!";
+    } else {
+      resultDisplay.innerHTML = "Incorrect!";
+    }
+  } else {
+    // If the end of the quiz questions has been reached, display the outro card.
+    displayOutro();
+  }
+}
+
+function displayOutro() {
+  // Stop displaying the question card, now display the outro card.
+  questionCard.setAttribute("style", "display: none");
+  outroCard.setAttribute("style", "display: block");
+  // Score from bonus time as one point for each 10 seconds remaining.
+  var bonusTimeScore = Math.floor(timeLeft / 10);
+
+  // Display user score with corresponding feedback.
+  if (correctAnswers >= 4) {
+    quizResults.innerHTML =
+      "Great job! You got " +
+      correctAnswers +
+      " out of " +
+      questions.length +
+      " questions correct.";
+  } else if (correctAnswers === 3) {
+    quizResults.innerHTML =
+      " Not bad, but you can do better! You got " +
+      correctAnswers +
+      " out of " +
+      questions.length +
+      " questions correct.";
+  } else {
+    quizResults.innerHTML =
+      "You need to go study and try again! You got " +
+      correctAnswers +
+      " out of " +
+      questions.length +
+      " questions correct.";
+  }
+
+  // Display bonus score from remaining time.
+  if (timeLeft > 20) {
+    bonusTime.innerHTML =
+      "Finished with time to spare! You got a bonus time score of " +
+      bonusTimeScore +
+      " seconds.";
+  } else if (timeLeft >= 10) {
+    bonusTime.innerHTML =
+      "Cutting it close! You got a bonus time score of " +
+      bonusTimeScore +
+      " seconds.";
+  } else {
+    bonusTime.innerHTML = "Unfortunately, you didn't get any bonus time score!";
+  }
+
+  finalScore = correctAnswers + bonusTimeScore;
+
+  if (finalScore > 0) {
+    // If the user has a score, display the save score form.
+    saveScoreForm.setAttribute("style", "display: block");
+  } else if (finalScore === 0) {
+    // If the user has no score, display message that scoring allows option to save their score.
+    zeroScore.setAttribute("style", "display: block");
+  } else {
+    // Correct final score in event user received time penalty with less than 10 seconds remaining.
+    // User has no score, display message that scoring allows option to save their score.
+    finalScore = 0;
+    zeroScore.setAttribute("style", "display: block");
+  }
+
+  finalScoreDisplay.innerHTML = "Your final score is " + finalScore + ".";
+}
+
 function saveScore(event) {
+  // Prevent page reload.
   event.preventDefault();
+  // Check for valid initials. If not valid, request valid input.
   var initials = userInitials.value.trim();
   var letterCheck = /^[A-Za-z]+$/;
   if (!initials.match(letterCheck)) {
     alert("Please enter your initials using only letters.");
     userInitials.value = "";
   } else if (!localStorage.getItem("CodeQuizScores")) {
+    // If local storage is clear of scores, create an array to store them. The users score is added as the first object in that array.
     var scoreToAdd = [
       {
         initials: initials,
@@ -173,9 +210,12 @@ function saveScore(event) {
       },
     ];
     localStorage.setItem("CodeQuizScores", JSON.stringify(scoreToAdd));
+    // Using local storage, flag for the high_scores.js to display a results message to the user that their score has been added.
     localStorage.setItem("DisplayResultsMessage", "true");
+    // Take user to high_scores page.
     window.location.href = "./high_scores.html";
   } else {
+    // If local storage already has an array of scores, add the users score to the array. As before, flag high_scores.js to display results message for user saved score.
     var savedScores = JSON.parse(localStorage.getItem("CodeQuizScores"));
     var scoreToAdd = {
       initials: initials,
@@ -184,8 +224,8 @@ function saveScore(event) {
     savedScores.push(scoreToAdd);
     localStorage.setItem("CodeQuizScores", JSON.stringify(savedScores));
     localStorage.setItem("DisplayResultsMessage", "true");
+    // Take user to high_scores page.
     window.location.href = "./high_scores.html";
-    // Call function to display just entered score and it's position in the high scores list. This just be a message shown in the element? This need to be a separate js file?
   }
 }
 
@@ -198,12 +238,6 @@ highScoresBtn.addEventListener("click", function () {
   window.location.href = "high_scores.html";
 });
 
-// Ways to simplify the code? For consideration:
-//    Clean up js file for index and high scores. Break things down into smallest, simplest functions for clarity.
-//    Having the js append elements as appropriate would cut down on html and the js element variables. It would also make the js easier to follow.
-//        This has been done for the questions' answers displays. Can this be implemented elsewhere?
-
-// Any functionality to add? Some notes within code. Consider if they score 0 maybe show a message saying they need points to save their score, as opposed to showing the score
-// save form.
-// Clean out any unused IDs and classes. Better comments throughout.
+// Clean out any unused IDs and classes. Better comments throughout all files.
+// Once live, update links on HTML page.
 // Note in ReadMe that I chose to keep styling very simple for now, with some basic responsive design. I may add more extensive styling, possibly a framework, in the future.
