@@ -73,8 +73,8 @@ ul {
     display: none;
 }
 
-/* At this time, styling is intentionally kept very simple. This may be revisited in the future. In respect to responsive design, h1 elements are to be displayed smaller
-on small smartphone sized screens. */
+/* At this time, styling is intentionally kept very simple. This may be revisited in the future. In respect to responsive design, h1 elements
+are to be displayed smaller on small smartphone sized screens. */
 
 /* Tablets. */
 /* @media screen and (max-width: 992px) {} */

@@ -26,7 +26,7 @@ var saveScoreForm = document.querySelector("#saveScoreForm");
 var timeCount = document.querySelector("#timeCount");
 var countdownText = document.querySelector("#countdownText");
 
-// Various global variables for the following functions.
+// Various global variables for the various quiz functions.
 var resultTimer;
 var timeLeft = 90;
 var answersArray = [];
@@ -34,16 +34,20 @@ var questionIndex = 0;
 var correctAnswers = 0;
 var finalScore;
 
+// Set display text for initial quiz length.
 timeCount.innerHTML = timeLeft;
 countdownText.innerHTML = " seconds left!";
 
+// startQuiz function will hide the intro card and display the question card. It will also start the timer and call the function to display the
+// first question in the question card.
 function startQuiz() {
   introCard.setAttribute("style", "display: none");
   questionCard.setAttribute("style", "display: block");
 
+  // This is the timer for the quiz. It also handles the time for the resultDisplay element, and updates the timer display text as appropriate.
   var timer = setInterval(function () {
-    // This is for displaying whether the user got the previous question correct or not. Rather than have it's own timer function it is simply implemented within the
-    // greater quiz timer function. Once time is up, hide display.
+    // This is for displaying whether the user got the previous question correct or not. Rather than have it's own timer function it is simply
+    // implemented within the greater quiz timer function. Once time is up, hide display.
     if (resultTimer > 0) {
       resultTimer--;
     } else {
@@ -60,7 +64,8 @@ function startQuiz() {
       timeCount.innerHTML = timeLeft;
       countdownText.innerHTML = " second left!";
     } else if (answersArray.length === questions.length) {
-      // If all questions are answered, clear the timer and it's HTML display, replace it's display with "You finished!", and display the outro card.
+      // If all questions are answered, clear the timer and it's HTML display, replace it's display with "You finished!", and display the outro
+      // card.
       timeCount.innerHTML = "";
       countdownText.innerHTML = "You finished!";
       clearInterval(timer);
@@ -99,6 +104,8 @@ function displayQuestion() {
   }
 }
 
+// checkAnswer function serves to track which answers the user got correct and which incorrect. It shows the next question and whether the user
+// got the previous one correct or not, or ends the quiz if the time limit is reached.
 function checkAnswer(event) {
   // If the answer is correct, push true to the answer array. Otherwise push false and penalize 10 seconds. Then, increment the question index.
   if (event.target.innerHTML === questions[questionIndex].correctAnswer) {
@@ -128,6 +135,8 @@ function checkAnswer(event) {
   }
 }
 
+// displayOutro will hide the question card and display the outro card. It will also show the users various quiz results with appropriate
+// feedback. Lastly it shows the save score form for non-zero scores, or the zero score message for zero scores.
 function displayOutro() {
   // Stop displaying the question card, now display the outro card.
   questionCard.setAttribute("style", "display: none");
@@ -184,14 +193,16 @@ function displayOutro() {
     zeroScore.setAttribute("style", "display: block");
   } else {
     // Correct final score in event user received time penalty with less than 10 seconds remaining.
-    // User has no score, display message that scoring allows option to save their score.
     finalScore = 0;
+    // The user has score of zero, display message that scoring allows option to save their score.
     zeroScore.setAttribute("style", "display: block");
   }
 
   finalScoreDisplay.innerHTML = "Your final score is " + finalScore + ".";
 }
 
+// saveScore saves valid user initials to local storage with their quiz score. It also uses local storage to flag for the high scores page to
+// show a message for the user that their scores were successfully added. It then redirects to the high scores page.
 function saveScore(event) {
   // Prevent page reload.
   event.preventDefault();
@@ -215,7 +226,8 @@ function saveScore(event) {
     // Take user to high_scores page.
     window.location.href = "./high_scores.html";
   } else {
-    // If local storage already has an array of scores, add the users score to the array. As before, flag high_scores.js to display results message for user saved score.
+    // If local storage already has an array of scores, add the users score to the array. As before, flag high_scores.js to display results
+    // message for user saved score.
     var savedScores = JSON.parse(localStorage.getItem("CodeQuizScores"));
     var scoreToAdd = {
       initials: initials,
@@ -229,6 +241,7 @@ function saveScore(event) {
   }
 }
 
+// Various quiz event listeners.
 startBtn.addEventListener("click", startQuiz);
 saveScoreBtn.addEventListener("click", saveScore);
 homeBtn.addEventListener("click", function () {
@@ -237,7 +250,3 @@ homeBtn.addEventListener("click", function () {
 highScoresBtn.addEventListener("click", function () {
   window.location.href = "high_scores.html";
 });
-
-// Clean out any unused IDs and classes. Better comments throughout all files.
-// Once live, update links on HTML page.
-// Note in ReadMe that I chose to keep styling very simple for now, with some basic responsive design. I may add more extensive styling, possibly a framework, in the future.

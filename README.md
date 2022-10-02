@@ -1,2 +1,5 @@
 # API-Code-Quiz
-This repository is a work in progress to create a web app with a timed coding quiz that saves and displays high scores. At time of writing there is substantial work to be done.
+
+ReadMe to be updated.
+
+For this project I chose to keep styling very simple for the time being, with some basic responsive design. More extensive styling, possibly a framework, may be added in the future.

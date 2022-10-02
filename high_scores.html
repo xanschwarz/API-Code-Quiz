@@ -5,30 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coding Quiz High Scores</title>
+    <!-- jass.css is a reset style sheet. -->
     <link rel="stylesheet" href="./assets/css/jass.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
 
   <body>
     <header>
-      <!-- This will need to be changed to live website. -->
       <a href="./index.html"> Back to Main Page </a>
     </header>
     <main>
       <section class="card">
         <h1>Top 5 Placed High Score Legends</h1>
-        <div id="score_display">
-          <!-- Scores are shown as lists with overall score placement, their total score, and their saved initials. -->
-          <!-- Tied scores share places and are ordered by their initials alphabetically. Top 5 places are shown for brevity. -->
-          <div id="places_column">
+        <div>
+          <!-- Scores are shown as lists with overall score placement, corresponding total score, and corresponding saved initials. Tied scores
+            share places and are ordered by their initials alphabetically. Top 5 places are shown for brevity. -->
+          <div>
             <h4>Place</h4>
             <ul id="places_list"></ul>
           </div>
-          <div id="scores_column">
+          <div>
             <h4>Score</h4>
             <ul id="scores_list"></ul>
           </div>
-          <div id="initials_column">
+          <div>
             <h4>Initials</h4>
             <ul id="initials_list"></ul>
           </div>

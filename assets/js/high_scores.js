@@ -1,13 +1,16 @@
-// Score lists elements.
+// Score lists elements and element for display of just-saved score.
 var placesList = document.getElementById("places_list");
 var scoresList = document.getElementById("scores_list");
 var initialsList = document.getElementById("initials_list");
+var resultsMessage = document.getElementById("results_message");
 
 // Retrieving the scores from local storage. Assigning the last entry to a variable for use in the results message, if applicable.
 var savedScores = JSON.parse(localStorage.getItem("CodeQuizScores"));
 var lastUser = savedScores[savedScores.length - 1];
 var topFive;
 
+// orderedScores puts saved scores in order by descending value, then alphabetically by initials. Each entry gets a place, with tied values
+// sharing places. It then slices the top 5 places for display.
 function orderedScores() {
   var slice;
 
@@ -40,11 +43,13 @@ function orderedScores() {
   return (topFive = savedScores.slice(0, slice));
 }
 
+// resultsMessage is enacted when local storage indicates that the page has been reached following a user saving a new score. It displays a
+// message to the user indicating their placement.
 function resultsMessage() {
-  // Checks local storage to see if user has saved a score. If so, displays a congratulations message and resets local storage message indicator to false.
+  // Checks local storage to see if user has saved a score. If so, displays a congratulations message and resets local storage message indicator
+  // to false.
   var messageCheck = localStorage.getItem("DisplayResultsMessage");
   if (messageCheck === "true") {
-    var resultsMessage = document.getElementById("results_message");
     resultsMessage.setAttribute("style", "display: block");
     // Provide message corresponding to user's placement in saved scores.
     if (lastUser.place <= 5) {
@@ -62,11 +67,12 @@ function resultsMessage() {
   }
 }
 
+// displayScores displays the top 5 score entries with their places and initials in the high scores page.
 function displayScores() {
   // Call function to order scores and return top 5 placement scores to be shown.
   orderedScores();
-  // Iterates through the topFive array. Creates a list element and assigns text for each score, it's corresponding initials and placement, then appends them to their
-  // respective lists.
+  // Iterates through the topFive array. Creates a list element and assigns text for each score, it's corresponding initials and placement, then
+  // appends them to their respective lists.
   for (i = 0; i < topFive.length; i++) {
     var scoreLi = document.createElement("li");
     var initialsLi = document.createElement("li");

@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Coding Quiz</title>
-    <!-- jass.css is a reset style sheet -->
+    <!-- jass.css is a reset style sheet. -->
     <link rel="stylesheet" href="./assets/css/jass.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
     <header>
-      <!-- This will need to be changed to live website. -->
       <a href="./high_scores.html"> View Highscores </a>
       <!-- This is where the remaining time will be displayed during the quiz. -->
-      <div id="timerDisplay">
+      <div>
         Time: <span id="timeCount"></span><span id="countdownText"></span>
       </div>
     </header>
@@ -28,7 +27,7 @@
           limit. Keep in mind that incorrect answers will penalize your
           score/time by 10 seconds!
         </p>
-        <!-- Pressing this starts the quiz. The timer will start, this card will stop displaying, the question card will be displayed. -->
+        <!-- This button starts the quiz. The timer will start, this card will stop displaying and the question card will be displayed. -->
         <button id="start">Start Quiz</button>
       </section>
 
@@ -45,7 +44,8 @@
         </p>
       </section>
 
-      <!-- Once time has run out or the user has answered all questions, the question card will stop displaying and the outro card will be shown. -->
+      <!-- Once time has run out or the user has answered all questions, the question card will stop displaying and the outro card will be
+        shown. -->
       <section class="card" id="outro">
         <h1>You finished the coding quiz!</h1>
         <p id="quizResults">
@@ -57,9 +57,8 @@
         <p id="finalScore">
           <!-- Final score as the correct answers plus any bonus time will be displayed here. -->
         </p>
-        <!-- This will need to be changed to live website. -->
-        <!-- User has the option to enter their initials to save their score. Doing so will save to local storage and redirect to the High Scores page. -->
-        <!-- Alternatively they can choose to go back to home or straight to the High Scores page without saving their score. -->
+        <!-- User has the option to enter their initials to save their score. Doing so will save to local storage and redirect to the High Scores
+          page. Alternatively they can choose to go back to home or straight to the High Scores page without saving their score. -->
         <p id="zeroScore">
           <!-- If the user has zero score, this will display. -->
           If you take the quiz again and get a score above 0, you will have the
